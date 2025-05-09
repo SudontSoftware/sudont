@@ -20,8 +20,7 @@ source ~/.bashrc
 ```
 You can do it in a chain, like this:
 ```
-git clone https://github.com/UisNotUnix/sudont.git ~/.sudont &&
-sudo pacman -S --needed doas && sudo echo "permit setenv {PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin} :wheel" >> /etc/doas.conf && chmod +x ~/.sudont/bin && echo 'export PATH="$HOME/.sudont/bin:$PATH"' >> ~/.bashrc && source ~/.bashrc
+git clone https://github.com/UisNotUnix/sudont.git ~/.sudont && chmod +x ~/.sudont/bin && echo 'export PATH="$HOME/.sudont/bin:$PATH"' >> ~/.bashrc && source ~/.bashrc
 ```
 ### Updating
 If i add new utils, it is recommended to update. Here is how to do it:
