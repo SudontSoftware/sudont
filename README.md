@@ -1,4 +1,4 @@
-# Sudon't
+# SUDON'T
 Don't `sudo`.
 
 This project is meant to make CLI tools faster to access.   
@@ -24,6 +24,11 @@ git clone https://github.com/UisNotUnix/sudont.git ~/.sudont && chmod +x ~/.sudo
 ```
 ### Updating
 If i add new utils, it is recommended to update. Here is how to do it:
+You can update through the cli tool...
+```
+sudont update
+```
+...or manually
 ```
 # Update the repository files
 cd ~/.sudont
