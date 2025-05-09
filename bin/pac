@@ -1,2 +1,2 @@
 #!/bin/bash
-doas pacman $@
+sudo pacman $@
