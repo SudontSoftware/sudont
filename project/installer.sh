@@ -27,7 +27,7 @@ fi
 # Example: install each dependency using pacman (Arch Linux)
 for dep in "${DEPENDS[@]}"; do
   echo "Installing $dep..."
-  sudo pacman -S --needed --noconfirm "$dep"
+  sudo pacman -Sy --needed --noconfirm "$dep"
 done
 
 # Add to PATH
