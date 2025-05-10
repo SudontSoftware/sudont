@@ -14,5 +14,6 @@ sudont update
 ```
 If you get an error "Can't update bin/sudont", run this:
 ```
+chmod +x $HOME/.sudont/project/updater.sh
 $HOME/.sudont/project/updater.sh
 ```
