@@ -2,6 +2,7 @@
 
 # Pull the newest sudont
 cd ~/.sudont
+git reset --hard HEAD
 git pull
 
 # Make everything executable again
