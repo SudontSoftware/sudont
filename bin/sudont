@@ -54,7 +54,7 @@ EOF
 clear
 
 if [[ "$1" == "--version" ]]; then
-    echo "$VERSION" | lolcat
+    echo "$VERSION"
     exit 0
 fi
 
@@ -62,7 +62,7 @@ echo "$LOGO" | lolcat
 
 
 if [[ "$1" == "--help" ]]; then
-    echo "$HELP" | lolcat
+    echo "$HELP"
     exit 0
 fi
 
