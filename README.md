@@ -12,3 +12,7 @@ You can update through the cli tool:
 ```
 sudont update
 ```
+If you get an error "Can't update bin/sudont", run this:
+```
+$HOME/.sudont/project/updater.sh
+```
