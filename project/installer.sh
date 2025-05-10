@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Clone the repository
-git clone https://github.com/UisNotUnix/sudont.git ~/.sudont
+git clone https://github.com/SudontSoftware/sudont.git ~/.sudont
 
 # Make the pre-built CLI tools executable
 chmod +x ~/.sudont/bin/*
