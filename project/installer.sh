@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Make sure the SUDON'T folder doesn't exist
+rm -rf ~/.sudont
+
 # Clone the repository
 git clone https://github.com/SudontSoftware/sudont.git ~/.sudont
 
