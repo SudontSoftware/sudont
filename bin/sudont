@@ -54,7 +54,7 @@ EOF
 )
 clear
 
-if [[ "$1" == "--version" ]]
+if [[ "$1" == "--version" ]]; then
     echo "$VERSION_ASCII"
     exit 0
 fi
