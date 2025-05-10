@@ -36,3 +36,6 @@ done
 # Add to PATH
 echo 'export PATH="$HOME/.sudont/bin:$PATH"' >> ~/.bashrc
 source ~/.bashrc
+
+# Delete the installer
+rm -rf ./installer.sh
