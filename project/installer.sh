@@ -24,7 +24,7 @@ if [[ ${#DEPENDS[@]} -eq 0 ]]; then
   exit 0
 fi
 
-# Example: install each dependency using pacman (Arch Linux)
+# Install each dependency using pacman (Arch Linux)
 for dep in "${DEPENDS[@]}"; do
   echo "Installing $dep..."
   sudo pacman -Sy --needed --noconfirm "$dep"
