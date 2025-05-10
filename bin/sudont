@@ -1,0 +1,71 @@
+#!/bin/bash
+
+SUDONT=$HOME/.sudont
+
+LOGO=$(cat <<'EOF'
+
+                                                                                                         ''''''
+   SSSSSSSSSSSSSSS UUUUUUUU     UUUUUUUUDDDDDDDDDDDDD             OOOOOOOOO     NNNNNNNN        NNNNNNNN '::::'TTTTTTTTTTTTTTTTTTTTTTT
+ SS:::::::::::::::SU::::::U     U::::::UD::::::::::::DDD        OO:::::::::OO   N:::::::N       N::::::N '::::'T:::::::::::::::::::::T
+S:::::SSSSSS::::::SU::::::U     U::::::UD:::::::::::::::DD    OO:::::::::::::OO N::::::::N      N::::::N ':::''T:::::::::::::::::::::T
+S:::::S     SSSSSSSUU:::::U     U:::::UUDDD:::::DDDDD:::::D  O:::::::OOO:::::::ON:::::::::N     N::::::N':::'  T:::::TT:::::::TT:::::T
+S:::::S             U:::::U     U:::::U   D:::::D    D:::::D O::::::O   O::::::ON::::::::::N    N::::::N''''   TTTTTT  T:::::T  TTTTTT
+S:::::S             U:::::D     D:::::U   D:::::D     D:::::DO:::::O     O:::::ON:::::::::::N   N::::::N               T:::::T
+ S::::SSSS          U:::::D     D:::::U   D:::::D     D:::::DO:::::O     O:::::ON:::::::N::::N  N::::::N               T:::::T
+  SS::::::SSSSS     U:::::D     D:::::U   D:::::D     D:::::DO:::::O     O:::::ON::::::N N::::N N::::::N               T:::::T
+    SSS::::::::SS   U:::::D     D:::::U   D:::::D     D:::::DO:::::O     O:::::ON::::::N  N::::N:::::::N               T:::::T
+       SSSSSS::::S  U:::::D     D:::::U   D:::::D     D:::::DO:::::O     O:::::ON::::::N   N:::::::::::N               T:::::T
+            S:::::S U:::::D     D:::::U   D:::::D     D:::::DO:::::O     O:::::ON::::::N    N::::::::::N               T:::::T
+            S:::::S U::::::U   U::::::U   D:::::D    D:::::D O::::::O   O::::::ON::::::N     N:::::::::N               T:::::T
+SSSSSSS     S:::::S U:::::::UUU:::::::U DDD:::::DDDDD:::::D  O:::::::OOO:::::::ON::::::N      N::::::::N             TT:::::::TT
+S::::::SSSSSS:::::S  UU:::::::::::::UU  D:::::::::::::::DD    OO:::::::::::::OO N::::::N       N:::::::N             T:::::::::T
+S:::::::::::::::SS     UU:::::::::UU    D::::::::::::DDD        OO:::::::::OO   N::::::N        N::::::N             T:::::::::T
+ SSSSSSSSSSSSSSS         UUUUUUUUU      DDDDDDDDDDDDD             OOOOOOOOO     NNNNNNNN         NNNNNNN             TTTTTTTTTTT
+ 
+ 
+EOF
+)
+
+VERSION=$(cat <<'EOF'
+   _____ _    _ _____   ____  _   _ _ _______          ___  __   ___  
+  / ____| |  | |  __ \ / __ \| \ | ( )__   __|        / _ \/_ | / _ \ 
+ | (___ | |  | | |  | | |  | |  \| |/   | |    __   _| | | || || | | |
+  \___ \| |  | | |  | | |  | | . ` |    | |    \ \ / / | | || || | | |
+  ____) | |__| | |__| | |__| | |\  |    | |     \ V /| |_| || || |_| |
+ |_____/ \____/|_____/ \____/|_| \_|    |_|      \_/  \___(_)_(_)___/ 
+                                                                      
+                                                                      
+EOF
+)
+HELP=$(cat <<'EOF'
+   _____ _    _ _____   ____  _   _ _ _______    _____ _      _____   _    _      _       
+  / ____| |  | |  __ \ / __ \| \ | ( )__   __|  / ____| |    |_   _| | |  | |    | |      
+ | (___ | |  | | |  | | |  | |  \| |/   | |    | |    | |      | |   | |__| | ___| |_ __  
+  \___ \| |  | | |  | | |  | | . ` |    | |    | |    | |      | |   |  __  |/ _ \ | '_ \ 
+  ____) | |__| | |__| | |__| | |\  |    | |    | |____| |____ _| |_  | |  | |  __/ | |_) |
+ |_____/ \____/|_____/ \____/|_| \_|    |_|     \_____|______|_____| |_|  |_|\___|_| .__/ 
+                                                                                   | |    
+                                                                                   |_|    
+
+Management:
+   sudont update - Update SUDON'T
+EOF
+)
+clear
+
+if [[ "$1" == "--version" ]]; then
+    echo "$VERSION" | lolcat
+    exit 0
+fi
+
+echo "$LOGO" | lolcat
+
+
+if [[ "$1" == "--help" ]]; then
+    echo "$HELP" | lolcat
+    exit 0
+fi
+
+if [[ "$1" == "update" ]]; then
+    bash $SUDONT/project/updater.sh
+fi
