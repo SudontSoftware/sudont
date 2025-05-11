@@ -68,17 +68,18 @@ GALLERY_ASCII=$(cat <<'EOF'
 EOF
 )
 clear
-if [[ -f "$SUDONT/project/sudontrc" ]]; then
-    bash "$SUDONT/project/sudontrc"
-else
-    echo "Warning: sudontrc not found. Skipping..." >&2
-fi
 if [[ "$1" == "--version" ]]; then
     echo "$VERSION_ASCII"
     exit 0
 fi
 
 echo "$LOGO" | lolcat
+
+if [[ -f "$SUDONT/project/sudontrc" ]]; then
+    bash "$SUDONT/project/sudontrc"
+else
+    echo "Warning: sudontrc not found. Skipping..." >&2
+fi
 
 if [[ $# -eq 0 ]]; then
     echo "Run 'sudont --help' for usage."
