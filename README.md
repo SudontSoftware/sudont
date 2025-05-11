@@ -3,7 +3,7 @@ The ultimate ricer.
 
 ## Installation
 Installing is simple:
-1. Download the project/installer.sh file!
+1. Download the [project/installer.sh](project/instaler.sh) file!
 2. Run it!
 3. Done!
 ### Updating
