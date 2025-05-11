@@ -28,14 +28,14 @@ EOF
 
 VERSION=0.2.2
 VERSION_ASCII=$(cat <<'EOF'
-   _____ _    _ _____   ____  _   _ _ _______          ___   ___    ___  
-  / ____| |  | |  __ \ / __ \| \ | ( )__   __|        / _ \ |__ \  |__ \ 
- | (___ | |  | | |  | | |  | |  \| |/   | |    __   _| | | |   ) |    ) |
-  \___ \| |  | | |  | | |  | | . ` |    | |    \ \ / / | | |  / /    / / 
-  ____) | |__| | |__| | |__| | |\  |    | |     \ V /| |_| | / /_ _ / /_ 
- |_____/ \____/|_____/ \____/|_| \_|    |_|      \_/  \___(_)____(_)____|
-                                                                         
-                                                                         
+   _____ _    _ _____   ____  _   _ _ _______        __   ___   ___  
+  / ____| |  | |  __ \ / __ \| \ | ( )__   __|      /_ | / _ \ / _ \ 
+ | (___ | |  | | |  | | |  | |  \| |/   | |    __   _| || | | | | | |
+  \___ \| |  | | |  | | |  | | . ` |    | |    \ \ / / || | | | | | |
+  ____) | |__| | |__| | |__| | |\  |    | |     \ V /| || |_| | |_| |
+ |_____/ \____/|_____/ \____/|_| \_|    |_|      \_/ |_(_)___(_)___/ 
+                                                                     
+                                                                     
 EOF
 )
 HELP=$(cat <<'EOF'
@@ -50,16 +50,39 @@ HELP=$(cat <<'EOF'
 
 Management:
    sudont update - Update SUDON'T
+Gallery Addons:
+   sudont gallery install (name) - Install an addon from the gallery
+   sudont gallery remove (name) - Remove an addon installed from the gallery
+EOF
+)
+GALLERY_ASCII=$(cat <<'EOF'
+   _____ _    _ _____   ____  _   _ _ _______    _____       _ _                 
+  / ____| |  | |  __ \ / __ \| \ | ( )__   __|  / ____|     | | |                
+ | (___ | |  | | |  | | |  | |  \| |/   | |    | |  __  __ _| | | ___ _ __ _   _ 
+  \___ \| |  | | |  | | |  | | . ` |    | |    | | |_ |/ _` | | |/ _ \ '__| | | |
+  ____) | |__| | |__| | |__| | |\  |    | |    | |__| | (_| | | |  __/ |  | |_| |
+ |_____/ \____/|_____/ \____/|_| \_|    |_|     \_____|\__,_|_|_|\___|_|   \__, |
+                                                                            __/ |
+                                                                           |___/ 
 EOF
 )
 clear
-
+if [[ -f "$SUDONT/project/sudontrc" ]]; then
+    bash "$SUDONT/project/sudontrc"
+else
+    echo "Warning: sudontrc not found. Skipping..." >&2
+fi
 if [[ "$1" == "--version" ]]; then
     echo "$VERSION_ASCII"
     exit 0
 fi
 
 echo "$LOGO" | lolcat
+
+if [[ $# -eq 0 ]]; then
+    echo "Run 'sudont --help' for usage."
+    exit 0
+fi
 
 
 if [[ "$1" == "--help" ]]; then
@@ -69,4 +92,35 @@ fi
 
 if [[ "$1" == "update" ]]; then
     bash $SUDONT/project/updater.sh
+    exit 0
 fi
+
+if [[ "$1" == "gallery" ]]; then
+    echo "$GALLERY_ASCII"
+    if [[ "$2" == "install" ]]; then
+        git clone https://github.com/SudontGallery/gallery-$3 $SUDONT/addons/gallery-$3
+        cd "$SUDONT/addons/gallery-$3"
+        if [[ ! -f project/paths.txt ]]; then
+            echo "This addon is invalid. Canceling..."
+            cd "$SUDONT"
+            rm -rf "addons/gallery-$3"
+            exit 1
+        fi
+        bash "project/install.sh"
+        echo "bash $SUDONT/addons/gallery-$3/project/exec.sh" >> project/sudontrc
+        bash "project/exec.sh"
+        exit 0
+    fi
+    if [[ "$2" == "remove" ]]; then
+        if [[ ! -d "$SUDONT/addons/gallery-$3" ]]; then
+            echo "Addon gallery-$3 is not installed."
+            exit 1
+        fi
+        bash "$SUDONT/addons/gallery-$3/project/remove.sh"
+        rm -rf "$SUDONT/addons/gallery-$3"
+        exit 0
+    fi
+fi
+
+echo "Unknown command: $1"
+exit 1
