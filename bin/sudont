@@ -148,7 +148,7 @@ if [[ "$1" == "gallery" ]]; then
     fi
 
     if [[ "$2" == "remove" ]]; then
-        ADDON_NAME="$4"
+        ADDON_NAME="$3"
         GALLERY_PATH="$SUDONT/addons/gallery-$ADDON_NAME"
 
         # Run uninstall script if it exists
