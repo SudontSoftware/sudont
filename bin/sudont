@@ -170,9 +170,26 @@ if [[ "$1" == "gallery" ]]; then
     fi
 
     if [[ "$2" == "list" ]]; then
-        ls $SUDONT/addons
+        echo -e "TYPE\tNAME"
+
+        for dir in "$SUDONT/addons/"*; do
+            [ -d "$dir" ] || continue
+            name="$(basename "$dir")"
+
+            if [[ "$name" == remote-* ]]; then
+                echo -e "remote\t${name#remote-}"
+            elif [[ -f "$dir/project/install.sh" ]]; then
+                echo -e "addon\t${name#gallery-}"
+            fi
+        done
+
+        exit 0
     fi
 
+
+    if [[ $2 -eq 0 ]];
+        echo "No action specified. Run 'sudont --help' for usage."
+    fi
 fi
 
 echo "Unknown command: $1"
