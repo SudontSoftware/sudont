@@ -169,6 +169,10 @@ if [[ "$1" == "gallery" ]]; then
         exit 0
     fi
 
+    if [[ "$2" == "list" ]]; then
+        ls $SUDONT/addons
+    fi
+
 fi
 
 echo "Unknown command: $1"
