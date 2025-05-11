@@ -50,9 +50,10 @@ HELP=$(cat <<'EOF'
 
 Management:
    sudont update - Update SUDON'T
-Gallery Addons:
+Gallery:
    sudont gallery install (remote) (name) - Install an addon from the gallery
    sudont gallery remove (name) - Remove an addon installed from the gallery
+   sudont gallery list - List all addons
 EOF
 )
 GALLERY_ASCII=$(cat <<'EOF'
