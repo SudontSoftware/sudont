@@ -98,19 +98,55 @@ fi
 if [[ "$1" == "gallery" ]]; then
     echo "$GALLERY_ASCII"
     if [[ "$2" == "install" ]]; then
-        git clone https://github.com/SudontGallery/gallery-$3 $SUDONT/addons/gallery-$3
-        cd "$SUDONT/addons/gallery-$3"
-        if [[ ! -f project/paths.txt ]]; then
-            echo "This addon is invalid. Canceling..."
-            cd "$SUDONT"
-            rm -rf "addons/gallery-$3"
+        REMOTE_NAME="$3"
+        ADDON_NAME="$4"
+        REMOTE_ADDON="$SUDONT/addons/remote-$REMOTE_NAME"
+        GALLERY_PATH="$SUDONT/addons/gallery-$ADDON_NAME"
+
+        if [[ ! -f "$REMOTE_ADDON/remote.sh" ]]; then
+            echo "Remote '$REMOTE_NAME' not found or invalid."
             exit 1
         fi
+
+        source "$REMOTE_ADDON/remote.sh"
+
+        if [[ -z "$REMOTE" ]]; then
+            echo "REMOTE variable not set in $REMOTE_ADDON/remote.sh."
+            exit 1
+        fi
+
+        echo "Cloning $REMOTE/gallery-$ADDON_NAME..."
+        git clone "$REMOTE/gallery-$ADDON_NAME" "$GALLERY_PATH" || {
+            echo "Failed to clone addon."
+            exit 1
+    }
+
+        cd "$GALLERY_PATH" || exit 1
+
+        if [[ ! -f project/paths.txt ]]; then
+            echo "This addon is invalid. Canceling..."
+            rm -rf "$GALLERY_PATH"
+            exit 1
+        fi
+
+        DEPENDS_FILE="project/depends.txt"
+        if [[ -f "$DEPENDS_FILE" ]]; then
+            source "$DEPENDS_FILE"
+            for dep in "${DEPENDS[@]}"; do
+                echo "Installing dependency: $dep..."
+                sudo pacman -Sy --needed --noconfirm "$dep"
+            done
+        else
+            echo "No dependency file found, continuing without dependencies."
+        fi
+
         sudo bash "project/install.sh"
-        echo "bash $SUDONT/addons/gallery-$3/project/exec.sh" >> project/sudontrc
-        bash "project/exec.sh"
+        echo "bash $GALLERY_PATH/project/exec.sh" >> "$SUDONT/project/sudontrc"
+        bash "$GALLERY_PATH/project/exec.sh"
+
         exit 0
     fi
+
     if [[ "$2" == "remove" ]]; then
         if [[ ! -d "$SUDONT/addons/gallery-$3" ]]; then
             echo "Addon gallery-$3 is not installed."
@@ -119,6 +155,9 @@ if [[ "$1" == "gallery" ]]; then
         sudo bash "$SUDONT/addons/gallery-$3/project/remove.sh"
         rm -rf "$SUDONT/addons/gallery-$3"
         exit 0
+    fi
+    if [[ "$2" == "update" ]]; then
+        
     fi
     if [[ $2 -eq 0 ]]; then
         echo "Please specify an action."
