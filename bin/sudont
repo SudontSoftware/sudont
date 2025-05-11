@@ -106,7 +106,7 @@ if [[ "$1" == "gallery" ]]; then
             rm -rf "addons/gallery-$3"
             exit 1
         fi
-        bash "project/install.sh"
+        sudo bash "project/install.sh"
         echo "bash $SUDONT/addons/gallery-$3/project/exec.sh" >> project/sudontrc
         bash "project/exec.sh"
         exit 0
@@ -116,7 +116,7 @@ if [[ "$1" == "gallery" ]]; then
             echo "Addon gallery-$3 is not installed."
             exit 1
         fi
-        bash "$SUDONT/addons/gallery-$3/project/remove.sh"
+        sudo bash "$SUDONT/addons/gallery-$3/project/remove.sh"
         rm -rf "$SUDONT/addons/gallery-$3"
         exit 0
     fi
