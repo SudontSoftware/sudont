@@ -148,18 +148,27 @@ if [[ "$1" == "gallery" ]]; then
     fi
 
     if [[ "$2" == "remove" ]]; then
-        if [[ ! -d "$SUDONT/addons/gallery-$3" ]]; then
-            echo "Addon gallery-$3 is not installed."
-            exit 1
+        ADDON_NAME="$4"
+        GALLERY_PATH="$SUDONT/addons/gallery-$ADDON_NAME"
+
+        # Run uninstall script if it exists
+        if [[ -f "$GALLERY_PATH/project/remove.sh" ]]; then
+            sudo bash "$GALLERY_PATH/project/remove.sh"
+        else
+            echo "No uninstall script found, skipping..."
         fi
-        sudo bash "$SUDONT/addons/gallery-$3/project/remove.sh"
-        rm -rf "$SUDONT/addons/gallery-$3"
+
+        # Remove line from sudontrc
+        LINE_TO_REMOVE="bash $GALLERY_PATH/project/exec.sh"
+        sed -i "\|$LINE_TO_REMOVE|d" "$SUDONT/project/sudontrc"
+
+        # Remove the addon directory
+        rm -rf "$GALLERY_PATH"
+
+        echo "Addon '$ADDON_NAME' removed successfully."
         exit 0
     fi
-    if [[ $2 -eq 0 ]]; then
-        echo "Please specify an action."
-        exit 0
-    fi
+
 fi
 
 echo "Unknown command: $1"
